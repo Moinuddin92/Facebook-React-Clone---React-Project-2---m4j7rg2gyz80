@@ -2,18 +2,38 @@
 import { useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Search, Person } from "@mui/icons-material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import './post.css'
 import axios from 'axios';
+import { getHeaderWithProjectId } from '../../constant';
 
 
-export default function Post({ post }) {
+export default function Post({ post, userData }) {
     const [like, setLike] = useState(post.likeCount);
     const [isLiked, setIsLiked] = useState(false);
 
-    const likeHandler = () => {
+    const likeHandler = async () => {
         if (isLiked === false) {
-            setLike(like + 1)
             setIsLiked(true)
+            const config = getHeaderWithProjectId();
+            console.log('Post ID:', post._id);
+            console.log(config.headers.projectID)
+            try {
+                const res = await axios.post(
+                    `https://academics.newtonschool.co/api/v1/facebook/like/${post._id}`, {}, {
+                    headers: {
+                        'Authorization': 'Bearer ' + userData.token,
+                        'projectID': config.headers.projectID
+                    }
+                }
+                );
+                console.log("Res like:", res);
+
+            } catch (err) {
+                console.log("Error:", err);
+            }
         } else {
             setLike(like - 1)
             setIsLiked(false)
@@ -43,10 +63,10 @@ export default function Post({ post }) {
                     <div className="postBottomLeft">
                         <div style={{ display: 'flex' }}>
                             <div className="likeIconCont">
-                                <img className='likeIcon' onClick={likeHandler} src={"../assets/like.png"} alt="" />
+                                <ThumbUpIcon className='likeIcon' onClick={likeHandler} />
                             </div>
                             <div className="likeIconCont">
-                                <img className='likeIcon' onClick={likeHandler} src={"../assets/heart.png"} alt="" />
+                                <FavoriteIcon className='likeIcon' onClick={likeHandler} />
                             </div>
                         </div>
                         <span className="postLikeCounter">{like} people like it</span>

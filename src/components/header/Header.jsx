@@ -81,13 +81,13 @@ export default function Header({ userData }) {
                     </div>
 
                     {
-                        userData.profileImage ? <img src={userData.profileImage ? userData.profileImage : null} alt="Profile" className="topbarImg" /> :
+                        userData.data.profileImage ? <img src={userData.data.profileImage ? userData.data.profileImage : null} alt="Profile" className="topbarImg" /> :
                             <div onClick={() => { setOpen(true) }}>
                                 <Person className="topbarIconCont" style={{ color: "black", borderRadius: '50%', fontSize: '31px', padding: 5 }} />
                             </div>
                     }
 
-                    {userData ? <span style={{ fontWeight: 700, color: 'black' }}>{userData.name}</span> : null}
+                    {userData ? <span style={{ fontWeight: 700, color: 'black' }}>{userData.data.name}</span> : null}
                     <Menu
                         id="demo-positioned-menu"
                         aria-labelledby="demo-positioned-button"

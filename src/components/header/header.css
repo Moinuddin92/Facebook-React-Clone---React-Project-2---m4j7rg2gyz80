@@ -135,13 +135,13 @@
 .topbarHomeIcon::after {
     content: ' ';
     display: block;
-    width: 45px;
+    width: 90px;
     height: 2px;
     position: absolute;
     top: 45px;
-    left: 495px;
+    left: 482px;
     bottom: 0;
-    background-color: #2e81f4;
+    background-color: #054af6;
     opacity: 0.5;
 }
 
