@@ -1,9 +1,9 @@
-// import React,{useEffect, useState} from 'react'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Search, Person } from "@mui/icons-material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import Snackbar from '@mui/material/Snackbar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import './post.css'
 import axios from 'axios';
@@ -13,13 +13,18 @@ import { getHeaderWithProjectId } from '../../constant';
 export default function Post({ post, userData }) {
     const [like, setLike] = useState(post.likeCount);
     const [isLiked, setIsLiked] = useState(false);
-
+    const [open, setOpen] = useState(false);
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
     const likeHandler = async () => {
         if (isLiked === false) {
             setIsLiked(true)
             const config = getHeaderWithProjectId();
             console.log('Post ID:', post._id);
-            console.log(config.headers.projectID)
             try {
                 const res = await axios.post(
                     `https://academics.newtonschool.co/api/v1/facebook/like/${post._id}`, {}, {
@@ -33,10 +38,11 @@ export default function Post({ post, userData }) {
 
             } catch (err) {
                 console.log("Error:", err);
+                setOpen(true)
             }
         } else {
-            setLike(like - 1)
-            setIsLiked(false)
+            setOpen(true)
+            // setIsLiked(false)
         }
     }
 
@@ -63,19 +69,20 @@ export default function Post({ post, userData }) {
                     <div className="postBottomLeft">
                         <div style={{ display: 'flex' }}>
                             <div className="likeIconCont">
-                                <ThumbUpIcon className='likeIcon' onClick={likeHandler} />
+                                <ThumbUpIcon className={isLiked ? 'likedIcon' : 'likeIcon'} onClick={likeHandler} />
                             </div>
                             <div className="likeIconCont">
-                                <FavoriteIcon className='likeIcon' onClick={likeHandler} />
+                                <FavoriteIcon className={isLiked ? 'likeHIcon' : 'likeIcon'} onClick={likeHandler} />
                             </div>
                         </div>
-                        <span className="postLikeCounter">{like} people like it</span>
+                        <span className="postLikeCounter">{isLiked ? "You and " : null}{like} people like it</span>
                     </div>
                     <div className="postBottomRight">
                         <span className="postCommentText">{post.commentCount} comments</span>
                     </div>
                 </div>
             </div>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} message="You already liked this post!" />
         </div>
     )
 }

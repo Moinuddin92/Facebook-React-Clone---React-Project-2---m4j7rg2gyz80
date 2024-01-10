@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 import { getHeaderWithProjectId } from "../../constant";
 import StoryReel from "../storyReel/StoryReel";
+import Button from '@mui/material/Button';
 
 export default function Feed({ changeState, userData }) {
     const [posts, setPosts] = useState([]);
@@ -13,8 +14,6 @@ export default function Feed({ changeState, userData }) {
     useEffect(() => {
         const fetchPosts = async () => {
             const res = await axios.get(`https://academics.newtonschool.co/api/v1/facebook/post?limit=10&page=${page}`, config);
-            console.log("Data Recd:", res);
-            console.log("Post Data:", posts);
             setPosts([...posts, ...res.data.data])
         }
         fetchPosts();
@@ -27,7 +26,7 @@ export default function Feed({ changeState, userData }) {
                 {posts.map((p) => (
                     <Post key={p._id} post={p} userData={userData} />
                 ))}
-                <button onClick={() => setPage(page + 1)}>Load more...</button>
+                <Button variant="contained" onClick={() => setPage(page + 1)}>Load more...</Button>
             </div>
         </div>
     );
