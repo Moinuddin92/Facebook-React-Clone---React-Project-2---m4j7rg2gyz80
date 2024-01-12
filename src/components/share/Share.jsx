@@ -6,7 +6,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import { Person } from '@mui/icons-material';
 
 export default function Share({ changeState, userData }) {
-    console.log('user data', userData);
+
     return (
         <div className='share' >
 
@@ -14,7 +14,7 @@ export default function Share({ changeState, userData }) {
                 <div className="shareTop">
                     {userData.profileImage ? <img className='shareProfileImage' src={userData.profileImage} alt="" /> : <Person />}
                     <div className="shareInputCont"></div>
-                    <input placeholder={`What's on your mind,${userData.name}?`} onClick={() => changeState} className='shareInput' />
+                    <input placeholder={`What's on your mind,${userData.data.name}?`} onClick={() => changeState()} className='shareInput' />
                 </div>
                 <hr className='shareHr' />
                 <div className="shareButtom">

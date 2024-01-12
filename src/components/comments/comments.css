@@ -1,0 +1,40 @@
+.cmtTop {
+    display: flex;
+}
+
+.cmtTopLeft {
+    flex: 2;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #F0F2F5;
+}
+
+.cmtProfileImage {
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.commentWrapper {
+    background-color: #F0F2F5;
+    width: fit-content;
+
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cmtUsername {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cmtContentWrapper {
+    flex-direction: row;
+    text-align: start;
+}

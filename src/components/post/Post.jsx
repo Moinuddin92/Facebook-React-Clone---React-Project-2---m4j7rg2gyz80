@@ -8,12 +8,18 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import './post.css'
 import axios from 'axios';
 import { getHeaderWithProjectId } from '../../constant';
+import Comments from '../comments/Comments';
+import CreatePost from '../createPost/CreatePost';
+import CreateComment from '../createComment/CreateComment';
 
 
 export default function Post({ post, userData }) {
     const [like, setLike] = useState(post.likeCount);
     const [isLiked, setIsLiked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [cmtOpen, setCmtOpen] = useState(false);
+    const [comment, setComment] = useState([]);
+    const [commentCount, setCommentCount] = useState(post.commentCount);
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -43,6 +49,31 @@ export default function Post({ post, userData }) {
         } else {
             setOpen(true)
             // setIsLiked(false)
+        }
+    }
+    const cmtHandler = async () => {
+        if (cmtOpen === false) {
+            setCmtOpen(true)
+            const config = getHeaderWithProjectId();
+
+            try {
+                const res = await axios.get(
+                    `https://academics.newtonschool.co/api/v1/facebook/post/${post._id}/comments`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + userData.token,
+                        'projectID': config.headers.projectID
+                    }
+                }
+                );
+                console.log("Res cmt:", res);
+                setComment([...res.data.data])
+
+            } catch (err) {
+                console.log("Error:", err);
+            }
+        }
+        else {
+            setCmtOpen(false)
         }
     }
 
@@ -78,9 +109,14 @@ export default function Post({ post, userData }) {
                         <span className="postLikeCounter">{isLiked ? "You and " : null}{like} people like it</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText">{post.commentCount} comments</span>
+                        <span className="postCommentText" onClick={cmtHandler}>{commentCount} comments</span>
                     </div>
                 </div>
+                {cmtOpen && comment.length > 0 && (
+                    comment.map((c) => (
+                        <Comments key={c._id} cmt={c} userData={userData} />
+                    )))}
+                <CreateComment userData={userData} post={post} comment={commentCount} setComment={setCommentCount} />
             </div>
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} message="You already liked this post!" />
         </div>

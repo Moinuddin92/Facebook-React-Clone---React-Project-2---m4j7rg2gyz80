@@ -13,8 +13,16 @@ export default function Feed({ changeState, userData }) {
     const config = getHeaderWithProjectId();
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get(`https://academics.newtonschool.co/api/v1/facebook/post?limit=10&page=${page}`, config);
-            setPosts([...posts, ...res.data.data])
+            try {
+                const res = await axios.get(`https://academics.newtonschool.co/api/v1/facebook/post?limit=10&page=${page}`, config);
+                console.log("Posts", res);
+                setPosts([...posts, ...res.data.data])
+            }
+            catch (err) {
+                console.log("error fetching post", err);
+                alert(err.response.data.message)
+            }
+
         }
         fetchPosts();
     }, [page]);

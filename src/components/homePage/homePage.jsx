@@ -8,18 +8,15 @@ import CreatePost from "../createPost/CreatePost";
 
 const HomePage = () => {
     const userData = useSelector(state => state.user.user.userData.data.user ? state.user.user.userData.data.user : state.user.user.userData);
-    // console.log("UserData", userData);
-    const ref = useRef(null);
     const [showCreatePost, setShowCreatePost] = useState(false);
     const changeState = () => {
-        ref.current?.focus();
         setShowCreatePost(!showCreatePost);
     }
     return (
         <>
+            {showCreatePost ? <CreatePost userData={userData.data} showCreatePost={showCreatePost} changeState={changeState} /> : null}
             <div className={showCreatePost ? "halfVisualHome" : "fullVisualHome"}>
                 <Header userData={userData} />
-                {showCreatePost ? <CreatePost /> : null}
                 <div className="homeContainer">
                     <Sidebar />
                     <Feed changeState={changeState} userData={userData} />
