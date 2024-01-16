@@ -7,7 +7,7 @@ import { getHeaderWithProjectId } from "../../constant";
 import StoryReel from "../storyReel/StoryReel";
 import Button from '@mui/material/Button';
 
-export default function Feed({ changeState, userData }) {
+export default function Feed({ changeState, userData, showReel }) {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const config = getHeaderWithProjectId();
@@ -29,7 +29,7 @@ export default function Feed({ changeState, userData }) {
     return (
         <div className="feed">
             <div className="feedWrapper">
-                <StoryReel />
+                {showReel ? <StoryReel /> : null}
                 <Share changeState={changeState} userData={userData} />
                 {posts.map((p) => (
                     <Post key={p._id} post={p} userData={userData} />

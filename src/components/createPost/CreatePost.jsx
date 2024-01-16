@@ -6,11 +6,46 @@ import CloseIcon from "@mui/icons-material/Close";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Person } from "@mui/icons-material";
 import './createPost.css';
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
+import { FileUploader } from "react-drag-drop-files";
+import { getHeaderWithProjectId } from "../../constant";
+import axios from "axios";
 
 
 export default function CreatePost({ userData, showCreatePost, changeState }) {
     const [postInput, setPostInput] = useState("");
+    const fileTypes = ["JPG", "PNG", "GIF"];
+    const [file, setFile] = useState(null);
+    const [isImgUpload, setIsImgUpload] = useState(false);
+    const handleChange = (file) => {
+        setFile(file);
+    };
+    const handleImgUpload = () => {
+        setIsImgUpload(!isImgUpload);
+    };
+    const handleBtnClick = async () => {
+        var formData = new FormData();
+        formData.append("title", `New post created by ${userData.data.name}`);
+        formData.append("content", postInput);
+        formData.append("images", file);
+        console.log("Form Data:", formData);
+        const config = getHeaderWithProjectId();
+        try {
+            const res = await axios.post(`https://academics.newtonschool.co/api/v1/facebook/post/`, formData, {
+                headers: {
+                    'Authorization': 'Bearer ' + userData.token,
+                    'projectID': config.headers.projectID,
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
+            // console.log("Created a Post", res);
+            if (res.status === 201) {
+                changeState();
+            }
+        } catch (err) {
+            console.log("Err posting new Post", err);
+        }
+    }
     return (
         <>
             <div className={showCreatePost ? "showCreatePost" : "hideCreatePost"}>
@@ -27,9 +62,9 @@ export default function CreatePost({ userData, showCreatePost, changeState }) {
                     <hr className="createPostHr" />
                     <div className="createPostCenter">
                         <div className="createPostProfileCont">
-                            {userData.profileImage ? <img className='createPostProfileImage' src={userData.profileImage} alt="" /> : <Person />}
+                            {userData.data.profileImage ? <img className='createPostProfileImage' src={userData.data.profileImage} alt="" /> : <Person />}
                             <span className="createPostUsername">
-                                <b>{userData.name}</b>
+                                <b>{userData.data.name}</b>
                             </span>
                         </div>
                         <div className="createPostInputCont">
@@ -37,10 +72,20 @@ export default function CreatePost({ userData, showCreatePost, changeState }) {
                                 value={postInput}
                                 onChange={(e) => setPostInput(e.target.value)}
                                 type="text"
-                                placeholder={`What's on your mind,${userData.name}?`}
+                                placeholder={`What's on your mind,${userData.data.name}?`}
                                 className="createPostInput"
                             />
                         </div>
+                    </div>
+                    <div className="createPostImgCont">
+                        {isImgUpload ?
+                            <>
+                                <FileUploader handleChange={handleChange} name='file' types={fileTypes} />
+                                <div className="createPostCloseIconCont">
+                                    <CloseIcon style={{ fontSize: "26px", opacity: "0.8", cursor: "pointer" }} onClick={() => handleImgUpload()} />
+                                </div>
+                            </>
+                            : null}
                     </div>
                     <div className="createPostOptionsCont">
                         <div className="createPostOption">
@@ -51,6 +96,7 @@ export default function CreatePost({ userData, showCreatePost, changeState }) {
                                         style={{ fontSize: "26px" }}
                                         htmlColor="green"
                                         className="createPostIcon"
+                                        onClick={() => handleImgUpload()}
                                     />
                                 </span>
                                 <span className="circleCont">
@@ -81,7 +127,7 @@ export default function CreatePost({ userData, showCreatePost, changeState }) {
                         </div>
                     </div>
                     <div className="createPostButtonCont">
-                        <button type="button" className="createPostButton"><b>Post</b></button>
+                        <button type="button" className="createPostButton" onClick={handleBtnClick} disabled={!postInput}><b>Post</b></button>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import { RiGroup2Fill } from "react-icons/ri";
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import fbIcon from '../../asset/img/f_logo_RGB-Blue_1024.png';
 import { useDispatch, useSelector } from "react-redux";
 import { Menu, MenuItem } from "@mui/material";
@@ -18,6 +18,7 @@ export default function Header({ userData }) {
 
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <>
             <div className="topbarContainer">
@@ -102,10 +103,14 @@ export default function Header({ userData }) {
                             horizontal: 'right',
                         }}
                     >
-                        <MenuItem onClick={() => setOpen(false)}>Profile</MenuItem>
+                        <MenuItem onClick={() => {
+                            setOpen(false)
+                            navigate(`/profile/${userData.data.name}`)
+                        }}>Profile</MenuItem>
                         <MenuItem onClick={() => {
                             dispatch(logout());
                             setOpen(false);
+                            navigate("/");
                         }}>Logout</MenuItem>
                     </Menu>
                 </div >

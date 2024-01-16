@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Search, Person } from "@mui/icons-material";
+import { Person } from "@mui/icons-material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Snackbar from '@mui/material/Snackbar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import './post.css'
 import axios from 'axios';
 import { getHeaderWithProjectId } from '../../constant';
 import Comments from '../comments/Comments';
-import CreatePost from '../createPost/CreatePost';
 import CreateComment from '../createComment/CreateComment';
+import { Alert } from '@mui/material';
 
 
 export default function Post({ post, userData }) {
@@ -40,7 +39,7 @@ export default function Post({ post, userData }) {
                     }
                 }
                 );
-                console.log("Res like:", res);
+                // console.log("Res like:", res);
 
             } catch (err) {
                 console.log("Error:", err);
@@ -65,7 +64,7 @@ export default function Post({ post, userData }) {
                     }
                 }
                 );
-                console.log("Res cmt:", res);
+                // console.log("Res cmt:", res);
                 setComment([...res.data.data])
 
             } catch (err) {
@@ -118,7 +117,9 @@ export default function Post({ post, userData }) {
                     )))}
                 <CreateComment userData={userData} post={post} comment={commentCount} setComment={setCommentCount} />
             </div>
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} message="You already liked this post!" />
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}  >
+                <Alert onClose={handleClose} severity='warning' sx={{ width: '100%' }} variant='filled' >You already liked this post!</Alert>
+            </Snackbar>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './comments.css'
-import { Person } from "@mui/icons-material";
+import { MoreHoriz, Person } from "@mui/icons-material";
 import { getHeaderWithProjectId } from "../../constant";
 export default function Comments({ cmt, userData }) {
     const [user, setUser] = useState({});
@@ -14,7 +14,7 @@ export default function Comments({ cmt, userData }) {
                     'projectID': config.headers.projectID
                 }
             })
-            console.log("Res user", res);
+            // console.log("Res user", res);
             setUser(res.data.data);
         }
         catch (err) {
@@ -38,7 +38,9 @@ export default function Comments({ cmt, userData }) {
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div className="cmtIcon">
+                <MoreHoriz />
             </div>
         </div>
     )

@@ -2,7 +2,7 @@
 
 .showCreatePost {
     width: 46.8%;
-    height: 380px;
+    height: 420px;
     display: flex;
     position: absolute;
     top: 70px;
@@ -109,6 +109,12 @@
 .createPostInputCont {
     height: 120px;
     margin-top: 15px;
+}
+
+.createPostImgCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .createPostOptionsCont {

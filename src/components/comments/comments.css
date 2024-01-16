@@ -38,3 +38,19 @@
     flex-direction: row;
     text-align: start;
 }
+
+.comment {
+    display: flex;
+    flex: 2;
+}
+
+.cmtIcon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #F0F2F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
