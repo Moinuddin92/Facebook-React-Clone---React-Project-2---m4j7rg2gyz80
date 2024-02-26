@@ -15,7 +15,7 @@ export default function Feed({ changeState, userData, showReel }) {
         const fetchPosts = async () => {
             try {
                 const res = await axios.get(`https://academics.newtonschool.co/api/v1/facebook/post?limit=10&page=${page}`, config);
-                console.log("Posts", res);
+                // console.log("Posts", res);
                 setPosts([...posts, ...res.data.data])
             }
             catch (err) {

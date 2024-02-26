@@ -30,10 +30,12 @@ const Signup = () => {
     const signUpUser = async (user) => {
         const config = getHeaderWithProjectId();
         try {
-            const res = await axios.post(
+            const resSignup = await axios.post(
                 "https://academics.newtonschool.co/api/v1/user/signup", { ...user, appType: "facebook" }, config
             );
-            // console.log("res", res);
+            const res = await axios.post(
+                "https://academics.newtonschool.co/api/v1/user/login", { ...user, appType: "facebook" }, config
+            );
             const token = res.data.token;
             if (token) {
                 dispatch(login(res.data))

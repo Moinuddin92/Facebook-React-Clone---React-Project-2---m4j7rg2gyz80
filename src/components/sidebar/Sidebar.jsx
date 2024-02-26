@@ -23,6 +23,9 @@ export default function Sidebar() {
     const confirmLogout = () => {
         setLogout(!logout)
     }
+    const handleDeadClick = () => {
+        alert("This feature is coming soon!")
+    }
 
     const [mode, setMode] = useState('day');
     const getSelectedMode = (e) => {
@@ -32,31 +35,31 @@ export default function Sidebar() {
         <div className="sidebar">
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <RssFeed className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Feed</span>
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <Group className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Friends</span>
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <Chat className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Messenger</span>
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <VideoLibraryIcon className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Videos</span>
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <StorefrontIcon className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Marketplace</span>
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <HelpOutline className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Questions</span>
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem" onClick={() => handleDeadClick()}>
                         <Event className="sidebarIcon" style={{ color: '#054af6' }} />
                         <span className="sidebarListItemText">Events</span>
                     </li>

@@ -29,7 +29,7 @@ export default function Post({ post, userData }) {
         if (isLiked === false) {
             setIsLiked(true)
             const config = getHeaderWithProjectId();
-            console.log('Post ID:', post._id);
+            // console.log('Post ID:', post._id);
             try {
                 const res = await axios.post(
                     `https://academics.newtonschool.co/api/v1/facebook/like/${post._id}`, {}, {
