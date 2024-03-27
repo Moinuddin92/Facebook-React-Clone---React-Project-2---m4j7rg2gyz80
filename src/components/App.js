@@ -6,6 +6,7 @@ import Home from "./home/Home";
 import Signup from "./signup/Signup";
 import Login from "./login/Login";
 import Profile from "./profile/Profile";
+import Error from "./errorPage/ErrorPage";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/home" element={<Error />} />
         </Routes>
       </div>
     </Provider>

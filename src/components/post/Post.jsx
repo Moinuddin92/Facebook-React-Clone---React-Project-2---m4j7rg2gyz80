@@ -9,13 +9,14 @@ import axios from 'axios';
 import { getHeaderWithProjectId } from '../../constant';
 import Comments from '../comments/Comments';
 import CreateComment from '../createComment/CreateComment';
-import { Alert } from '@mui/material';
+import { Alert, Menu, MenuItem } from '@mui/material';
 
 
 export default function Post({ post, userData }) {
     const [like, setLike] = useState(post.likeCount);
     const [isLiked, setIsLiked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [postMenuOpen, setPostMenuOpen] = useState(false);
     const [cmtOpen, setCmtOpen] = useState(false);
     const [comment, setComment] = useState([]);
     const [commentCount, setCommentCount] = useState(post.commentCount);
@@ -87,7 +88,11 @@ export default function Post({ post, userData }) {
                     </div>
 
                     <div className="postTopRight">
-                        <MoreVertIcon style={{ cursor: 'pointer' }} />
+                        <MoreVertIcon style={{ cursor: 'pointer' }} onClick={() => setPostMenuOpen(true)} />
+                        <Menu id="demo-positioned-menu" aria-labelledby='demo-positioned-button' open={postMenuOpen} onClose={() => setPostMenuOpen(false)} PaperProps={{ elevation: 0, sx: { position: 'absolute', top: 0 } }} transformOrigin={{ horizontal: '0px', vertical: '0px' }} anchorOrigin={{ horizontal: 'center', vertical: 'center' }} style={{ top: 0 }}>
+                            <MenuItem>Edit</MenuItem>
+                            <MenuItem>Delete</MenuItem>
+                        </Menu>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import { RiGroup2Fill } from "react-icons/ri";
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import fbIcon from '../../asset/img/f_logo_RGB-Blue_1024.png';
 import { useDispatch, useSelector } from "react-redux";
 import { Menu, MenuItem } from "@mui/material";
@@ -39,23 +39,31 @@ export default function Header({ userData }) {
                 <div className="topbarCenter">
                     <div className="topbarLinks">
                         <div className="topbarCenterIcon">
-                            <div className="topbarHomeIcon">
-                                <Link to="/">
-                                    <HomeIcon style={{ fontSize: '30px', color: "#054af6", position: 'relative', opacity: '0.7' }} />
-                                </Link>
-                            </div>
+                            <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                <div className="topbarHomeIcon">
+                                    <HomeIcon style={{ fontSize: '30px', position: 'relative', opacity: '0.7' }} />
+                                </div>
+                            </NavLink>
                         </div>
                         <div className="topbarCenterIcon">
-                            <FlagIcon style={{ fontSize: '30px', color: "grey" }} />
+                            <NavLink to="/home" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                <FlagIcon style={{ fontSize: '30px' }} />
+                            </NavLink>
                         </div>
                         <div className="topbarCenterIcon">
-                            <SubscriptionsIcon style={{ fontSize: '30px', color: "grey" }} />
+                            <NavLink to="/home" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                <SubscriptionsIcon style={{ fontSize: '30px' }} />
+                            </NavLink>
                         </div>
                         <div className="topbarCenterIcon">
-                            <StorefrontIcon style={{ fontSize: '30px', color: "grey" }} />
+                            <NavLink to="/home" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                <StorefrontIcon style={{ fontSize: '30px' }} />
+                            </NavLink>
                         </div>
                         <div className="topbarCenterIcon">
-                            <RiGroup2Fill style={{ fontSize: '30px', color: "grey" }} />
+                            <NavLink to="/home" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                                <RiGroup2Fill style={{ fontSize: '30px' }} />
+                            </NavLink>
                         </div>
 
                     </div>

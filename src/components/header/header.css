@@ -132,7 +132,7 @@
     background-color: rgb(212, 203, 203);
 }
 
-.topbarHomeIcon::after {
+/* .topbarHomeIcon::after {
     content: ' ';
     display: block;
     width: 90px;
@@ -143,6 +143,20 @@
     bottom: 0;
     background-color: #054af6;
     opacity: 0.5;
+} */
+
+.nav-link {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.active {
+    color: #054af6;
+    border-bottom: 4px solid #054af6;
+    width: 100%;
 }
 
 .topbarCenterIcon {
